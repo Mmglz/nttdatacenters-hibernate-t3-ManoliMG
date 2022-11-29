@@ -1,0 +1,44 @@
+<configuration packagingData="false" debug="true">
+
+	<!-- Variable asociada a la fecha -->
+	<timestamp key="logDate" datePattern="dd-MM-yyyy" />
+
+	<!-- RollingFileAppender -->
+	<appender name="LogRolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<!-- Nombre del fichero -->
+		<file>C:\dev\logs\logManoliMG-${logDate}.log</file>
+
+		<!-- Política de troceo el fichero -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>C:\dev\logs\logManoliMG-${logDate}.%i.log.zip
+			</fileNamePattern>
+			
+			<!-- Cantidad de ficheros troceados -->
+			<minIndex>1</minIndex>
+			<maxIndex>3</maxIndex>
+		</rollingPolicy>
+
+		<!-- Capacidad máxima del fichero -->
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>50KB</maxFileSize>
+		</triggeringPolicy>
+
+		<!-- Layaout personalizado -->
+		<encoder>
+			<pattern>%d{dd MMM yyyy;HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%method] - %msg%n </pattern>
+		</encoder>
+
+	</appender>
+
+	<root level="debug">
+		<appender-ref ref="LogRolling" />
+	</root>
+	
+	<!-- Se reduce la salida a error para que el archivo de log sea más comprensible -->
+	<logger name="org.hibernate" level="error" />
+	<logger name="org.jboss" level="error" />
+	<logger name="org.mariadb" level="error" />
+
+</configuration>
