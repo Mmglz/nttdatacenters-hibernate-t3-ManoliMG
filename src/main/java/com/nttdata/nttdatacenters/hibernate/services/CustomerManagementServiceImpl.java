@@ -77,7 +77,6 @@ public class CustomerManagementServiceImpl implements CustomerManagementServiceI
 
 		// Obtención de todos los clientes.
 		return customerDao.seacrhAll();
-
 	}
 
 	@Override
